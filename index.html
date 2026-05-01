@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일상의 틈새 — 디자인 영감 가챠</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Grotesk:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0d0d1a;
+    --glow-pink: #ff2d78;
+    --glow-cyan: #00f5ff;
+    --glow-purple: #b44fff;
+    --glow-yellow: #ffe144;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    padding: 20px 16px 60px;
+  }
+
+  /* ─── background grid ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── ambient blobs ─── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob1 { width: 500px; height: 500px; background: var(--glow-purple); top: -150px; left: -150px; }
+  .blob2 { width: 400px; height: 400px; background: var(--glow-pink);   bottom: -100px; right: -100px; }
+  .blob3 { width: 300px; height: 300px; background: var(--glow-cyan);   top: 40%; left: 50%; transform: translateX(-50%); }
+
+  /* ─── header ─── */
+  header {
+    position: relative; z-index: 1;
+    text-align: center;
+    margin-bottom: 32px;
+    margin-top: 8px;
+  }
+  header .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--glow-cyan);
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--glow-cyan) 50%, var(--glow-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+  header p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+  }
+
+  /* ─── gacha machine wrapper ─── */
+  .machine-wrap {
+    position: relative; z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ─── SVG machine ─── */
+  .machine-svg-wrap {
+    width: min(340px, 90vw);
+    filter: drop-shadow(0 0 40px rgba(180,79,255,0.4)) drop-shadow(0 0 80px rgba(0,245,255,0.15));
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .machine-svg-wrap:active { transform: scale(0.97); }
+
+  /* lever animation */
+  #lever-group {
+    transform-origin: 242px 285px;
+    transition: transform 0.0s;
+  }
+  #lever-group.pull {
+    animation: leverPull 0.55s cubic-bezier(.36,.07,.19,.97) forwards;
+  }
+  @keyframes leverPull {
+    0%   { transform: rotate(0deg); }
+    30%  { transform: rotate(38deg); }
+    60%  { transform: rotate(38deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  /* capsule drop animation */
+  #capsule-group {
+    opacity: 0;
+    transform-origin: 96px 350px;
+  }
+  #capsule-group.drop {
+    animation: capsuleDrop 0.7s 0.45s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes capsuleDrop {
+    0%   { opacity: 0; transform: translateY(-30px) rotate(-10deg); }
+    60%  { opacity: 1; transform: translateY(6px) rotate(4deg); }
+    80%  { transform: translateY(-3px) rotate(-2deg); }
+    100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  }
+
+  /* balls inside hopper bounce */
+  .ball-inner {
+    animation: floatBall 3s ease-in-out infinite;
+  }
+  .ball-inner:nth-child(2) { animation-delay: 0.6s; }
+  .ball-inner:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes floatBall {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-5px); }
+  }
+
+  /* spin indicator on capsule */
+  #capsule-shine {
+    animation: capsuleShine 2s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes capsuleShine {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ─── result card ─── */
+  .result-area {
+    width: min(560px, 95vw);
+    margin-top: 28px;
+    min-height: 220px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .result-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 28px 24px 24px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.05) inset,
+      0 20px 60px rgba(0,0,0,0.5),
+      0 0 40px rgba(180,79,255,0.12);
+    display: none;
+    animation: cardReveal 0.5s cubic-bezier(.22,1,.36,1) both;
+  }
+  .result-card.visible { display: block; }
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .result-card .sentence {
+    font-size: clamp(15px, 3.5vw, 19px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
+  }
+  .result-card .sentence em {
+    font-style: normal;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .tag-상황 { background: rgba(255,45,120,0.25); color: #ff7eb3; border: 1px solid rgba(255,45,120,0.4); }
+  .tag-장소 { background: rgba(0,245,255,0.15); color: #5ef9ff; border: 1px solid rgba(0,245,255,0.35); }
+  .tag-사람 { background: rgba(180,79,255,0.2);  color: #d499ff; border: 1px solid rgba(180,79,255,0.4); }
+  .tag-사물 { background: rgba(255,225,68,0.15); color: #ffe77a; border: 1px solid rgba(255,225,68,0.35); }
+  .tag-페인포인트 { background: rgba(255,140,0,0.2); color: #ffb84d; border: 1px solid rgba(255,140,0,0.4); }
+  .tag-기술 { background: rgba(0,255,150,0.15); color: #5dffc8; border: 1px solid rgba(0,255,150,0.35); }
+
+  /* postit chips */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .chip {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
+    backdrop-filter: blur(8px);
+    flex: 1 1 calc(33% - 8px);
+    min-width: 130px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .chip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .chip .chip-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    opacity: 0.5;
+    font-weight: 700;
+  }
+  .chip .chip-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+  }
+
+  /* ─── button ─── */
+  .cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 100px;
+    padding: 14px 32px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .btn:active { transform: scale(0.95); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--glow-purple) 0%, var(--glow-pink) 100%);
+    color: #fff;
+    box-shadow: 0 0 30px rgba(180,79,255,0.5), 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .btn-primary:hover { box-shadow: 0 0 50px rgba(180,79,255,0.7), 0 4px 30px rgba(0,0,0,0.5); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .btn-secondary:hover { color: #fff; border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+  /* ─── hint text ─── */
+  .hint {
+    position: relative; z-index: 1;
+    margin-top: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  /* ─── history log ─── */
+  .history-wrap {
+    position: relative; z-index: 1;
+    width: min(560px, 95vw);
+    margin-top: 40px;
+  }
+  .history-wrap h2 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+  .history-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .history-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8); }
+  .history-item .history-num {
+    font-size: 9px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-right: 6px;
+  }
+
+  /* loading dots */
+  .loading-dots {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 40px 0;
+  }
+  .loading-dots.active { display: flex; }
+  .loading-dots span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--glow-cyan);
+    animation: dotBounce 0.9s ease-in-out infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.15s; background: var(--glow-purple); }
+  .loading-dots span:nth-child(3) { animation-delay: 0.30s; background: var(--glow-pink); }
+  @keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40%           { transform: scale(1.2); opacity: 1; }
+  }
+
+  /* particle burst */
+  .particle {
+    position: fixed;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99;
+    animation: particleFly 1s ease-out forwards;
+  }
+  @keyframes particleFly {
+    0%   { opacity: 1; transform: translate(0,0) scale(1); }
+    100% { opacity: 0; transform: var(--tx) scale(0.3); }
+  }
+
+  @media (max-width: 480px) {
+    .chip { flex: 1 1 calc(50% - 8px); min-width: 110px; }
+    .machine-svg-wrap { width: 90vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<header>
+  <div class="eyebrow">Design Inspiration Engine</div>
+  <h1>일상의 틈새</h1>
+  <p>레버를 당기면 뻔하지 않은 영감 조합이 튀어나온다</p>
+</header>
+
+<!-- ════════════════════════════════════════
+     GACHA MACHINE SVG
+     ════════════════════════════════════════ -->
+<div class="machine-wrap">
+  <div class="machine-svg-wrap" id="machineSvg" title="레버를 당겨 가챠!">
+  <svg viewBox="0 0 320 480" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <defs>
+      <!-- body gradient -->
+      <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#2a1a4e"/>
+        <stop offset="50%"  stop-color="#1a0d35"/>
+        <stop offset="100%" stop-color="#0f0824"/>
+      </linearGradient>
+      <!-- top dome gradient -->
+      <radialGradient id="domeGrad" cx="50%" cy="30%" r="70%">
+        <stop offset="0%"   stop-color="rgba(0,245,255,0.5)"/>
+        <stop offset="40%"  stop-color="rgba(100,0,200,0.25)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
+      </radialGradient>
+      <!-- dome glass shine -->
+      <radialGradient id="domeShine" cx="35%" cy="25%" r="50%">
+        <stop offset="0%"   stop-color="rgba(255,255,255,0.35)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </radialGradient>
+      <!-- ball colors -->
+      <radialGradient id="ball1" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#ff6eb4"/>
+        <stop offset="100%" stop-color="#b200ff"/>
+      </radialGradient>
+      <radialGradient id="ball2" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#60f9ff"/>
+        <stop offset="100%" stop-color="#0070ff"/>
+      </radialGradient>
+      <radialGradient id="ball3" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#ffe566"/>
+        <stop offset="100%" stop-color="#ff8800"/>
+      </radialGradient>
+      <radialGradient id="ball4" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#7fff9a"/>
+        <stop offset="100%" stop-color="#00b86b"/>
+      </radialGradient>
+      <radialGradient id="ball5" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#ffc7a0"/>
+        <stop offset="100%" stop-color="#ff4040"/>
+      </radialGradient>
+      <!-- capsule -->
+      <radialGradient id="capsuleGrad" cx="35%" cy="25%" r="75%">
+        <stop offset="0%"   stop-color="rgba(255,255,255,0.75)"/>
+        <stop offset="50%"  stop-color="rgba(100,220,255,0.35)"/>
+        <stop offset="100%" stop-color="rgba(0,100,200,0.1)"/>
+      </radialGradient>
+      <!-- base gradient -->
+      <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#1e1040"/>
+        <stop offset="100%" stop-color="#0a0520"/>
+      </linearGradient>
+      <!-- coin slot metal -->
+      <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#9060ff"/>
+        <stop offset="100%" stop-color="#5020a0"/>
+      </linearGradient>
+      <!-- lever -->
+      <linearGradient id="leverGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#ff2d78"/>
+        <stop offset="100%" stop-color="#c200a0"/>
+      </linearGradient>
+      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="8" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <clipPath id="domeClip">
+        <ellipse cx="131" cy="185" rx="82" ry="98"/>
+      </clipPath>
+    </defs>
+
+    <!-- ── Base / Stand ── -->
+    <rect x="55" y="400" width="210" height="32" rx="14" fill="url(#baseGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <rect x="70" y="425" width="180" height="18" rx="9" fill="#0a0520" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <!-- feet -->
+    <rect x="72" y="437" width="40" height="10" rx="5" fill="#100630"/>
+    <rect x="208" y="437" width="40" height="10" rx="5" fill="#100630"/>
+
+    <!-- ── Body ── -->
+    <rect x="50" y="270" width="220" height="142" rx="22" fill="url(#bodyGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- body inner bevel top -->
+    <rect x="55" y="273" width="210" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
+    <!-- body inner bevel left -->
+    <rect x="53" y="270" width="6" height="142" rx="3" fill="rgba(255,255,255,0.04)"/>
+
+    <!-- panel stripe deco -->
+    <rect x="70" y="300" width="180" height="2" rx="1" fill="rgba(0,245,255,0.15)"/>
+    <rect x="70" y="390" width="180" height="2" rx="1" fill="rgba(0,245,255,0.15)"/>
+
+    <!-- ── Coin / Button panel ── -->
+    <!-- coin slot -->
+    <rect x="175" y="315" width="60" height="20" rx="8" fill="url(#metalGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <text x="205" y="329" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)" font-family="Space Grotesk,sans-serif" font-weight="700" letter-spacing="1">PULL</text>
+
+    <!-- three deco lights -->
+    <circle cx="185" cy="358" r="6" fill="#ff2d78" filter="url(#glow)" opacity="0.9"/>
+    <circle cx="205" cy="358" r="6" fill="#00f5ff" filter="url(#glow)" opacity="0.9"/>
+    <circle cx="225" cy="358" r="6" fill="#b44fff" filter="url(#glow)" opacity="0.9"/>
+
+    <!-- label plate -->
+    <rect x="60" y="305" width="100" height="80" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="110" y="328" text-anchor="middle" font-size="8" fill="rgba(0,245,255,0.8)" font-family="Space Grotesk,sans-serif" letter-spacing="2">INSPIRATION</text>
+    <text x="110" y="345" text-anchor="middle" font-size="13" fill="#fff" font-family="Noto Sans KR,sans-serif" font-weight="900">일상의 틈새</text>
+    <text x="110" y="362" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk,sans-serif">GACHA MACHINE</text>
+    <text x="110" y="376" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Noto Sans KR,sans-serif">영감을 뽑아보세요</text>
+
+    <!-- capsule exit chute -->
+    <rect x="55" y="392" width="90" height="18" rx="9" fill="#0d0825" stroke="rgba(0,245,255,0.25)" stroke-width="1.5"/>
+    <text x="100" y="405" text-anchor="middle" font-size="8" fill="rgba(0,245,255,0.4)" font-family="Space Grotesk,sans-serif" letter-spacing="1">출구</text>
+
+    <!-- ── Dome neck ── -->
+    <rect x="85" y="252" width="92" height="26" rx="0" fill="#180a38" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <rect x="85" y="252" width="92" height="6" fill="rgba(255,255,255,0.05)"/>
+    <!-- neck highlight rings -->
+    <line x1="85" y1="262" x2="177" y2="262" stroke="rgba(0,245,255,0.2)" stroke-width="1"/>
+    <line x1="85" y1="270" x2="177" y2="270" stroke="rgba(0,245,255,0.1)" stroke-width="1"/>
+
+    <!-- ── Dome (transparent sphere) ── -->
+    <!-- dome shadow base -->
+    <ellipse cx="131" cy="187" rx="84" ry="100" fill="rgba(0,0,10,0.7)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <!-- dome glass body -->
+    <ellipse cx="131" cy="185" rx="82" ry="98" fill="url(#domeGrad)"/>
+    <!-- balls inside hopper -->
+    <g clip-path="url(#domeClip)">
+      <circle class="ball-inner" cx="105" cy="210" r="22" fill="url(#ball1)" opacity="0.92" filter="url(#glow)"/>
+      <circle class="ball-inner" cx="148" cy="220" r="20" fill="url(#ball2)" opacity="0.88" filter="url(#glow)"/>
+      <circle class="ball-inner" cx="125" cy="175" r="18" fill="url(#ball3)" opacity="0.85" filter="url(#glow)"/>
+      <circle class="ball-inner" cx="160" cy="178" r="16" fill="url(#ball4)" opacity="0.80" filter="url(#glow)"/>
+      <circle class="ball-inner" cx="95"  cy="160" r="14" fill="url(#ball5)" opacity="0.75" filter="url(#glow)"/>
+      <!-- extra small scattered -->
+      <circle cx="138" cy="140" r="10" fill="url(#ball1)" opacity="0.5"/>
+      <circle cx="115" cy="240" r="9"  fill="url(#ball4)" opacity="0.4"/>
+      <circle cx="155" cy="248" r="8"  fill="url(#ball3)" opacity="0.35"/>
+    </g>
+    <!-- dome shine overlay -->
+    <ellipse cx="131" cy="185" rx="82" ry="98" fill="url(#domeShine)"/>
+    <!-- dome rim -->
+    <ellipse cx="131" cy="185" rx="82" ry="98" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="none"/>
+    <!-- dome edge highlight -->
+    <path d="M 65 155 Q 55 185 70 220" stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 68 148 Q 60 180 74 215" stroke="rgba(255,255,255,0.12)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- ── Lever ── -->
+    <g id="lever-group">
+      <!-- lever base mount -->
+      <circle cx="242" cy="285" r="12" fill="#1e1040" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+      <circle cx="242" cy="285" r="7" fill="rgba(180,79,255,0.6)" filter="url(#glow)"/>
+      <!-- lever shaft -->
+      <rect x="239" y="230" width="7" height="58" rx="3.5" fill="url(#leverGrad)"/>
+      <!-- lever knob -->
+      <circle cx="242" cy="225" r="14" fill="url(#leverGrad)" filter="url(#glowStrong)"/>
+      <circle cx="242" cy="225" r="14" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="238" cy="221" r="5" fill="rgba(255,255,255,0.4)"/>
+      <!-- knob ring -->
+      <circle cx="242" cy="225" r="14" stroke="rgba(255,100,150,0.6)" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- ── Capsule (ejected) ── -->
+    <g id="capsule-group">
+      <ellipse cx="96" cy="408" rx="18" ry="18" fill="url(#capsuleGrad)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" opacity="0.9"/>
+      <!-- capsule inner glow -->
+      <ellipse cx="91" cy="403" rx="10" ry="8" fill="rgba(255,255,255,0.2)"/>
+      <!-- capsule spin ring -->
+      <ellipse cx="96" cy="408" rx="18" ry="18" stroke="rgba(0,245,255,0.6)" stroke-width="1.5" stroke-dasharray="6 4" fill="none" id="capsule-shine"/>
+    </g>
+
+    <!-- top chrome cap -->
+    <ellipse cx="131" cy="88" rx="30" ry="10" fill="#1a0a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <ellipse cx="131" cy="85" rx="28" ry="8" fill="rgba(255,255,255,0.08)"/>
+    <!-- top antenna bolt -->
+    <circle cx="131" cy="77" r="6" fill="var(--glow-cyan)" filter="url(#glowStrong)" opacity="0.9"/>
+    <circle cx="131" cy="77" r="3" fill="#fff"/>
+  </svg>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="btn btn-primary" id="gachaBtn">🎰 레버 당기기</button>
+    <button class="btn btn-secondary" id="copyBtn" style="display:none">복사하기</button>
+  </div>
+  <p class="hint">또는 기계 이미지를 직접 클릭해도 됩니다</p>
+</div>
+
+<!-- result -->
+<div class="result-area">
+  <div class="loading-dots" id="loadingDots">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="sentence" id="resultSentence"></div>
+    <div class="chips" id="resultChips"></div>
+  </div>
+</div>
+
+<!-- history -->
+<div class="history-wrap" id="historyWrap" style="display:none">
+  <h2>뽑기 기록</h2>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<script>
+/* ─── DATA ─────────────────────────────────────────── */
+const DATA = {
+  상황: [
+    "기상/출근","등교","운전 중","혼자 있을 때","장을 본 후 정리할 때",
+    "졸리지만 뭔가 해야 할 때","누군가에게 보여주고 싶은 순간","무언가에 몰입하고 있을 때",
+    "무언가를 놓치고 지나친 것 같은 느낌이 들 때","걷거나 달릴 때","샤워하거나 세면대 앞",
+    "요리할 때","아이디어가 떠올랐을 때","소리를 듣기 어려운 상황 (지하철, 공사장)",
+    "함께 있지만 대화가 어색할 때","가방을 열고 뭘 찾고 있을 때",
+    "방금 전에 뭘 했는지 기억 안 날 때","말 걸기 망설여지는 타이밍","집중이 필요할 때",
+    "공공장소에서 기다릴 때","친구들과 대화할 때","비가 오는데 우산이 없을 때",
+    "말로 표현하기 어려운 감정을 느낄 때","카메라로 찍고 싶은데 손이 바쁠 때",
+    "새로운 공간에 처음 왔을 때","끝내야 할 일을 미루고 있을 때"
+  ],
+  장소: [
+    "집","사무실","지하철","버스","병원","콘서트장","공연장","엘리베이터 안","편의점",
+    "가로등 없는 골목","작은 공방","동물 병원","지하 주차장","러닝머신 위",
+    "사이클 위","미용실 의자","학교","공원","카페","자동차 안","해변","세탁실",
+    "버스 정류장","학교 사물함 앞","병원 대기실","주차장 출구","셀프 빨래방",
+    "창가 자리","포장 음식 무인 수령함","공항","헬스장","화장실","캠핑장",
+    "냉장고 앞","고속도로","무인매장","퇴근 후 조용한 집 거실","물리치료 병원",
+    "현관","찜질방"
+  ],
+  사람: [
+    "혼자 사는 20대","아기 키우는 부모","3교대 근무자","스마트폰 중독자",
+    "멀티태스킹이 많은 직장인","혼자 사는 고령자","종이 메모에 의존하는 사람",
+    "디지털 디톡스 중인 사람","말 없이 관찰하는 사람",
+    "아날로그에 애정이 있지만 디지털도 쓰는 사람","기분을 숨기는 사람",
+    "발표 때만 말 많아지는 사람","조용하지만 타이핑은 세게 치는 사람",
+    "매일 기록을 시도하지만 실패하는 사람","ADHD 혹은 산만한 사람","시니어",
+    "감정 기복이 심한 사람","창작자 크리에이터","새로운 기술에 익숙하지 않은 사람",
+    "왼손잡이","감정 표현이 서툰 사람","이중언어 사용자","시력이 낮은 사람",
+    "기술에 능한 사람","임산부 혹은 다이어터","텍스트를 선호하는 사람",
+    "'누구에게 보여주기'가 중요한 사람","예민한 청결 강박","제일 먼저 나가는 사람",
+    "알람 7개 맞추고도 못 일어나는 사람","메모장에 모든 걸 쓰는 사람",
+    "물건을 자주 잃어버리는 사람","제품 설치에 서툰 사람",
+    "소지품을 매일 바꾸는 사람","망설이는 손을 가진 사람","자주 혼잣말 하는 사람",
+    "늘 들고 다니는 것들이 있는 사람","공부 시작 전 셋팅이 긴 사람",
+    "음악 안 켜면 공부 안 되는 사람","주변 시선에 민감한 사람",
+    "부모가 된 후 자기 시간이 줄어든 사람"
+  ],
+  사물: [
+    "스마트폰","이어폰","헤드폰","알람 시계","책상","침대","베개",
+    "팔찌","반지","목걸이","수건걸이","책갈피","텀블러","코스터 (컵 받침)",
+    "식물 화분 받침대","스마트워치 밴드","백팩 끈","의자","거울","우산",
+    "도어락","식기류","손잡이","택배 상자","폰 케이스","쿠션","담요",
+    "식탁","매트","창문 커튼","의자 다리","CCTV","탁상용 선풍기",
+    "콘센트","충전기","수건","욕실 용품","리모컨","신발","노트","펜",
+    "도어 스토퍼","옷걸이","헤어드라이어","벽걸이 시계","실내 슬리퍼",
+    "핸드크림","책상 모서리","우산 손잡이","노트북"
+  ],
+  페인포인트: [
+    "무엇을 먼저 해야 할지 모르겠음","집중이 어려움","푸시 알림 과잉",
+    "반복되는 루틴에 지루함","까먹음","감정 표현이 어려움","잊혀질 권리",
+    "신체 변화에 따라 제품이 불편해짐","손이 자유롭지 않아 조작이 어려움",
+    "손이 모자람","균형이 무너짐","발표만 하면 목 마름","카페 자리 뺏김",
+    "공부 시작 전 유튜브","필기하다가 꺼짐","정보 과부하",
+    "연결은 되어 있지만 고립감","기술을 잘 모름","제품 사용법이 직관적이지 않음",
+    "집중하려는데 자꾸 외부 자극이 들어옴","지금 필요한 물건이 어디 있는지 기억 안 남",
+    "사용 후 원래 자리에 두는 게 귀찮음","타이밍 오류","너무 많은 가능성",
+    "나만 모름","발표 때 손 어디 둘지 모름","잘못 보낸 단톡 사진",
+    "수업 중 몰래 먹기","강의 중 웃참 실패","손이 젖어 터치를 못함",
+    "미묘한 감정 상태가 기록되지 않음","알림을 봤지만 다시 찾기 어려움",
+    "타인에게 현재 상태를 설명하기 어려움","조용한 공간에서 알림이 시끄러움",
+    "정보가 분산되어 있음","컨디션이 안 좋을 때 누가 챙겨주지 않음",
+    "물건이 내 상태나 기분을 알아차리지 못함","뒤늦은 인식",
+    "분명한데 전달이 안 됨","비슷한 이름의 폴더가 너무 많음",
+    "시험 전날 청소","중요한 걸 캡처로만 남김"
+  ],
+  기술: [
+    "제스처 인식","위치 기반 서비스","개인화 알고리즘","웨어러블 센서","잔상",
+    "필터링","미세한 진동","공간 메모리","바람 감지","말 없이 반응",
+    "지속 가능한 기술","감정 분석","수면 데이터","반응형 인터페이스",
+    "실시간 얼굴 감정 스캐닝","자석 기반 결합 분리","공간 기반 AR",
+    "마찰력 조절이 가능한 소재","흔들리면 기록","연필 끝으로 조작",
+    "스치면 반응","뚜껑 여닫기 반응","탄소 저감 기술","맥락 기반 UI",
+    "촉각 피드백","시선 추적","기후 센싱 (온도 습도)","공기질·조도에 반응하는 인터페이스",
+    "실시간 심박·스트레스 변화 감지","객체 간 연결 상태 시각화 기술",
+    "손등 터치","그림자 센서","숨 쉬듯 연결됨","헛기침 인식"
+  ]
+};
+
+const CATEGORY_COLORS = {
+  상황: 'tag-상황',
+  장소: 'tag-장소',
+  사람: 'tag-사람',
+  사물: 'tag-사물',
+  페인포인트: 'tag-페인포인트',
+  기술: 'tag-기술'
+};
+
+const SENTENCE_TEMPLATES = [
+  (d) => `<em class="${CATEGORY_COLORS.사람}">${d.사람}</em>이 <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em> 상황에 처했을 때, <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>을 통해 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>라는 문제를 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>으로 해결하려면?`,
+  (d) => `<em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>에 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 더하면 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>를 해소할 수 있을까?`,
+  (d) => `<em class="${CATEGORY_COLORS.사물}">${d.사물}</em>이 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 만나면, <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>가 달라진다.`,
+  (d) => `<em class="${CATEGORY_COLORS.상황}">${d.상황}</em>의 순간, <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에 있는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>은 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>에서 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>를 느낀다. 여기에 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 심는다면?`,
+  (d) => `<em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 품은 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>이 <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에 있다면, <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>는 어떻게 풀릴까?`,
+];
+
+/* ─── UTILS ────────────────────────────────────────── */
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function roll() {
+  return {
+    상황: pick(DATA.상황),
+    장소: pick(DATA.장소),
+    사람: pick(DATA.사람),
+    사물: pick(DATA.사물),
+    페인포인트: pick(DATA.페인포인트),
+    기술: pick(DATA.기술),
+  };
+}
+
+/* ─── STATE ─────────────────────────────────────────── */
+let history = [];
+let currentDraw = null;
+let animating = false;
+
+/* ─── DOM ───────────────────────────────────────────── */
+const gachaBtn   = document.getElementById('gachaBtn');
+const copyBtn    = document.getElementById('copyBtn');
+const machineSvg = document.getElementById('machineSvg');
+const leverGroup = document.getElementById('lever-group');
+const capsuleGrp = document.getElementById('capsule-group');
+const loadingDots= document.getElementById('loadingDots');
+const resultCard = document.getElementById('resultCard');
+const resultSent = document.getElementById('resultSentence');
+const resultChips= document.getElementById('resultChips');
+const historyWrap= document.getElementById('historyWrap');
+const historyList= document.getElementById('historyList');
+
+/* ─── PARTICLES ─────────────────────────────────────── */
+function spawnParticles(x, y) {
+  const colors = ['#ff2d78','#00f5ff','#b44fff','#ffe144','#5dffc8'];
+  for (let i = 0; i < 16; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const angle = (Math.PI * 2 * i) / 16 + (Math.random() - 0.5) * 0.6;
+    const dist  = 60 + Math.random() * 80;
+    const tx    = Math.cos(angle) * dist;
+    const ty    = Math.sin(angle) * dist - 20;
+    p.style.cssText = `
+      left:${x - 4}px; top:${y - 4}px;
+      background:${colors[i % colors.length]};
+      --tx: translate(${tx}px, ${ty}px);
+      animation-duration: ${0.7 + Math.random() * 0.5}s;
+    `;
+    document.body.appendChild(p);
+    p.addEventListener('animationend', () => p.remove());
+  }
+}
+
+/* ─── GACHA LOGIC ───────────────────────────────────── */
+function triggerGacha(evt) {
+  if (animating) return;
+  animating = true;
+  gachaBtn.disabled = true;
+  gachaBtn.textContent = '뽑는 중...';
+  copyBtn.style.display = 'none';
+
+  // lever animation
+  leverGroup.classList.remove('pull');
+  void leverGroup.offsetWidth;
+  leverGroup.classList.add('pull');
+
+  // capsule drop
+  capsuleGrp.classList.remove('drop');
+  void capsuleGrp.offsetWidth;
+  capsuleGrp.classList.add('drop');
+
+  // hide old result
+  resultCard.classList.remove('visible');
+  loadingDots.classList.add('active');
+
+  // particle burst from button or click position
+  const rect = (evt && evt.currentTarget && evt.currentTarget !== machineSvg)
+    ? evt.currentTarget.getBoundingClientRect()
+    : gachaBtn.getBoundingClientRect();
+  const px = rect.left + rect.width  / 2;
+  const py = rect.top  + rect.height / 2;
+  setTimeout(() => spawnParticles(px, py), 420);
+
+  // reveal after delay
+  setTimeout(() => {
+    loadingDots.classList.remove('active');
+    const draw = roll();
+    currentDraw = draw;
+    const tmpl = SENTENCE_TEMPLATES[Math.floor(Math.random() * SENTENCE_TEMPLATES.length)];
+    resultSent.innerHTML = tmpl(draw);
+
+    resultChips.innerHTML = Object.entries(draw).map(([cat, val]) => `
+      <div class="chip">
+        <span class="chip-label">${cat}</span>
+        <span class="chip-value">${val}</span>
+      </div>
+    `).join('');
+
+    resultCard.classList.add('visible');
+    copyBtn.style.display = 'inline-flex';
+
+    // push to history
+    const plain = `[${draw.상황}] [${draw.장소}] [${draw.사람}] — [${draw.사물}] × [${draw.페인포인트}] × [${draw.기술}]`;
+    history.unshift({ draw, plain });
+    if (history.length > 20) history.pop();
+    renderHistory();
+
+    gachaBtn.disabled = false;
+    gachaBtn.textContent = '🎰 다시 뽑기';
+    animating = false;
+  }, 900);
+}
+
+/* ─── COPY ──────────────────────────────────────────── */
+copyBtn.addEventListener('click', () => {
+  if (!currentDraw) return;
+  const d = currentDraw;
+  const text = `[일상의 틈새 가챠]\n상황: ${d.상황}\n장소: ${d.장소}\n사람: ${d.사람}\n사물: ${d.사물}\n페인포인트: ${d.페인포인트}\n기술: ${d.기술}`;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = copyBtn.textContent;
+    copyBtn.textContent = '✓ 복사됨';
+    setTimeout(() => copyBtn.textContent = orig, 1500);
+  });
+});
+
+/* ─── HISTORY ───────────────────────────────────────── */
+function renderHistory() {
+  if (history.length === 0) { historyWrap.style.display = 'none'; return; }
+  historyWrap.style.display = 'block';
+  historyList.innerHTML = history.map((h, i) => `
+    <div class="history-item" data-idx="${i}">
+      <span class="history-num">#${String(i+1).padStart(2,'0')}</span>${h.plain}
+    </div>
+  `).join('');
+  historyList.querySelectorAll('.history-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx);
+      const h = history[idx];
+      currentDraw = h.draw;
+      const tmpl = SENTENCE_TEMPLATES[Math.floor(Math.random() * SENTENCE_TEMPLATES.length)];
+      resultSent.innerHTML = tmpl(h.draw);
+      resultChips.innerHTML = Object.entries(h.draw).map(([cat, val]) => `
+        <div class="chip">
+          <span class="chip-label">${cat}</span>
+          <span class="chip-value">${val}</span>
+        </div>
+      `).join('');
+      resultCard.classList.remove('visible');
+      void resultCard.offsetWidth;
+      resultCard.classList.add('visible');
+      copyBtn.style.display = 'inline-flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+/* ─── EVENTS ─────────────────────────────────────────── */
+gachaBtn.addEventListener('click',   triggerGacha);
+machineSvg.addEventListener('click', triggerGacha);
+
+// keyboard shortcut: Space or Enter
+document.addEventListener('keydown', (e) => {
+  if ((e.code === 'Space' || e.code === 'Enter') && !animating) {
+    e.preventDefault();
+    triggerGacha(null);
+  }
+});
+</script>
+</body>
+</html>
