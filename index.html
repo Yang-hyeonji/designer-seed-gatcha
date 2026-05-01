@@ -3,862 +3,1001 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>일상의 틈새 — 디자인 영감 가챠</title>
+<title>Design Seed Gatcha!</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Space+Grotesk:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
-  :root {
-    --bg: #0d0d1a;
-    --glow-pink: #ff2d78;
-    --glow-cyan: #00f5ff;
-    --glow-purple: #b44fff;
-    --glow-yellow: #ffe144;
-    --glass-bg: rgba(255,255,255,0.06);
-    --glass-border: rgba(255,255,255,0.15);
-  }
+:root {
+  --bg: #8B9A3A;
+  --bg2: #7A8A30;
+  --pink: #FF8DC7;
+  --pink-dark: #E8609A;
+  --pink-light: #FFB8DC;
+  --pink-shadow: #C94080;
+  --yellow: #FFD84D;
+  --yellow-dark: #E8B800;
+  --yellow-light: #FFF0A0;
+  --capsule-top: #FF6B6B;
+  --capsule-bot: #FFD93D;
+  --white: #FFFFFF;
+  --note-yellow: #FFF59D;
+  --note-shadow: #F9A825;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    background: var(--bg);
-    min-height: 100vh;
-    font-family: 'Noto Sans KR', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow-x: hidden;
-    padding: 20px 16px 60px;
-  }
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(120,140,20,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(60,80,0,0.4) 0%, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
 
-  /* ─── background grid ─── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,245,255,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
+/* ── TITLE ── */
+.page-title {
+  margin-top: 36px;
+  text-align: center;
+  z-index: 1;
+}
+.page-title h1 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 5vw, 56px);
+  color: #fff;
+  letter-spacing: -1px;
+  text-shadow:
+    4px 4px 0 var(--pink-dark),
+    6px 6px 0 rgba(0,0,0,0.2);
+  line-height: 1.1;
+}
+.page-title h1 span {
+  color: var(--yellow);
+  text-shadow:
+    3px 3px 0 var(--yellow-dark),
+    5px 5px 0 rgba(0,0,0,0.2);
+}
+.page-title p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
 
-  /* ─── ambient blobs ─── */
-  .blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.25;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .blob1 { width: 500px; height: 500px; background: var(--glow-purple); top: -150px; left: -150px; }
-  .blob2 { width: 400px; height: 400px; background: var(--glow-pink);   bottom: -100px; right: -100px; }
-  .blob3 { width: 300px; height: 300px; background: var(--glow-cyan);   top: 40%; left: 50%; transform: translateX(-50%); }
+/* ── MAIN LAYOUT ── */
+.stage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 32px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 24px;
+  flex-wrap: wrap;
+}
 
-  /* ─── header ─── */
-  header {
-    position: relative; z-index: 1;
-    text-align: center;
-    margin-bottom: 32px;
-    margin-top: 8px;
-  }
-  header .eyebrow {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--glow-cyan);
-    opacity: 0.8;
-    margin-bottom: 8px;
-  }
-  header h1 {
-    font-size: clamp(22px, 5vw, 36px);
-    font-weight: 900;
-    background: linear-gradient(135deg, #fff 0%, var(--glow-cyan) 50%, var(--glow-purple) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.2;
-  }
-  header p {
-    margin-top: 10px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
-    font-weight: 300;
-  }
+/* ═══════════════════════════════════════
+   GACHA MACHINE
+═══════════════════════════════════════ */
+.machine-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
 
-  /* ─── gacha machine wrapper ─── */
-  .machine-wrap {
-    position: relative; z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.machine {
+  position: relative;
+  width: 280px;
+  cursor: pointer;
+  user-select: none;
+}
+.machine.shake {
+  animation: machineShake 0.5s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes machineShake {
+  0%,100% { transform: rotate(0deg) translateX(0); }
+  15%      { transform: rotate(-3deg) translateX(-4px); }
+  30%      { transform: rotate(3deg) translateX(4px); }
+  45%      { transform: rotate(-2deg) translateX(-3px); }
+  60%      { transform: rotate(2deg) translateX(3px); }
+  75%      { transform: rotate(-1deg) translateX(-1px); }
+}
 
-  /* ─── SVG machine ─── */
-  .machine-svg-wrap {
-    width: min(340px, 90vw);
-    filter: drop-shadow(0 0 40px rgba(180,79,255,0.4)) drop-shadow(0 0 80px rgba(0,245,255,0.15));
-    cursor: pointer;
-    transition: transform 0.15s ease;
-  }
-  .machine-svg-wrap:active { transform: scale(0.97); }
+/* ── DOM SPHERE ── */
+.dome-wrap {
+  position: relative;
+  width: 220px;
+  height: 210px;
+  margin: 0 auto;
+}
+.dome {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.55) 0%, rgba(200,240,255,0.25) 40%, rgba(100,180,220,0.1) 100%);
+  border: 3px solid rgba(255,255,255,0.6);
+  box-shadow:
+    inset -15px -15px 30px rgba(0,0,0,0.15),
+    inset 10px 10px 30px rgba(255,255,255,0.3),
+    0 0 0 6px rgba(255,255,255,0.12),
+    0 8px 32px rgba(0,0,0,0.25);
+  overflow: hidden;
+  z-index: 2;
+}
+.dome-shine {
+  position: absolute;
+  width: 60px;
+  height: 45px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, transparent 70%);
+  top: 18px;
+  left: 35px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+}
+.dome-shine2 {
+  position: absolute;
+  width: 25px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.5) 0%, transparent 70%);
+  top: 80px;
+  right: 30px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+}
 
-  /* lever animation */
-  #lever-group {
-    transform-origin: 242px 285px;
-    transition: transform 0.0s;
-  }
-  #lever-group.pull {
-    animation: leverPull 0.55s cubic-bezier(.36,.07,.19,.97) forwards;
-  }
-  @keyframes leverPull {
-    0%   { transform: rotate(0deg); }
-    30%  { transform: rotate(38deg); }
-    60%  { transform: rotate(38deg); }
-    100% { transform: rotate(0deg); }
-  }
+/* balls inside dome */
+.balls-inside {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.ball {
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 6px rgba(0,0,0,0.25), inset 3px 3px 6px rgba(255,255,255,0.4);
+}
+/* 18 balls arranged to fill the dome */
+.ball:nth-child(1)  { width:52px;height:52px; background:radial-gradient(circle at 35% 30%, #FFEB80, #FFB800); bottom:0; left:20px; }
+.ball:nth-child(2)  { width:48px;height:48px; background:radial-gradient(circle at 35% 30%, #FFF0A0, #FFD000); bottom:10px; left:65px; }
+.ball:nth-child(3)  { width:50px;height:50px; background:radial-gradient(circle at 35% 30%, #FFE066, #FFA500); bottom:0; left:108px; }
+.ball:nth-child(4)  { width:46px;height:46px; background:radial-gradient(circle at 35% 30%, #FFD580, #FF8C00); bottom:12px; left:148px; }
+.ball:nth-child(5)  { width:44px;height:44px; background:radial-gradient(circle at 35% 30%, #FFF3B0, #FFD700); bottom:5px; right:15px; }
+.ball:nth-child(6)  { width:50px;height:50px; background:radial-gradient(circle at 35% 30%, #FFFACD, #FFE44D); bottom:48px; left:5px; }
+.ball:nth-child(7)  { width:48px;height:48px; background:radial-gradient(circle at 35% 30%, #FFE880, #FFC200); bottom:55px; left:50px; }
+.ball:nth-child(8)  { width:52px;height:52px; background:radial-gradient(circle at 35% 30%, #FFF2C0, #FFCA00); bottom:50px; left:95px; }
+.ball:nth-child(9)  { width:46px;height:46px; background:radial-gradient(circle at 35% 30%, #FFE566, #FFB000); bottom:58px; left:138px; }
+.ball:nth-child(10) { width:44px;height:44px; background:radial-gradient(circle at 35% 30%, #FFFBE0, #FFD84D); bottom:52px; right:10px; }
+.ball:nth-child(11) { width:48px;height:48px; background:radial-gradient(circle at 35% 30%, #FFF0B0, #FFC800); bottom:96px; left:20px; }
+.ball:nth-child(12) { width:46px;height:46px; background:radial-gradient(circle at 35% 30%, #FFE044, #FF9500); bottom:100px; left:62px; }
+.ball:nth-child(13) { width:50px;height:50px; background:radial-gradient(circle at 35% 30%, #FFED80, #FFD000); bottom:98px; left:104px; }
+.ball:nth-child(14) { width:44px;height:44px; background:radial-gradient(circle at 35% 30%, #FFF8C0, #FFBA00); bottom:102px; left:148px; }
+.ball:nth-child(15) { width:40px;height:40px; background:radial-gradient(circle at 35% 30%, #FFFACD, #FFD84D); bottom:140px; left:35px; }
+.ball:nth-child(16) { width:42px;height:42px; background:radial-gradient(circle at 35% 30%, #FFE566, #FFB000); bottom:145px; left:75px; }
+.ball:nth-child(17) { width:40px;height:40px; background:radial-gradient(circle at 35% 30%, #FFF0A0, #FFC400); bottom:142px; left:115px; }
+.ball:nth-child(18) { width:36px;height:36px; background:radial-gradient(circle at 35% 30%, #FFFBE0, #FFD700); bottom:148px; left:148px; }
 
-  /* capsule drop animation */
-  #capsule-group {
-    opacity: 0;
-    transform-origin: 96px 350px;
-  }
-  #capsule-group.drop {
-    animation: capsuleDrop 0.7s 0.45s cubic-bezier(.22,1,.36,1) forwards;
-  }
-  @keyframes capsuleDrop {
-    0%   { opacity: 0; transform: translateY(-30px) rotate(-10deg); }
-    60%  { opacity: 1; transform: translateY(6px) rotate(4deg); }
-    80%  { transform: translateY(-3px) rotate(-2deg); }
-    100% { opacity: 1; transform: translateY(0) rotate(0deg); }
-  }
+/* dome collar / neck */
+.dome-collar {
+  width: 200px;
+  height: 22px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--pink-light) 0%, var(--pink) 100%);
+  border-radius: 0 0 8px 8px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.2),
+    inset 0 2px 4px rgba(255,255,255,0.4),
+    inset 0 -2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+}
+.dome-collar::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 20px; right: 20px; height: 3px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 2px;
+}
 
-  /* balls inside hopper bounce */
-  .ball-inner {
-    animation: floatBall 3s ease-in-out infinite;
-  }
-  .ball-inner:nth-child(2) { animation-delay: 0.6s; }
-  .ball-inner:nth-child(3) { animation-delay: 1.2s; }
-  @keyframes floatBall {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-5px); }
-  }
+/* dome top cap */
+.dome-cap {
+  width: 80px;
+  height: 22px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--pink-light) 0%, var(--pink) 100%);
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -3px 8px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.5);
+  position: relative;
+}
+.dome-cap::after {
+  content: '';
+  position: absolute;
+  top: -10px; left: 50%; transform: translateX(-50%);
+  width: 20px; height: 12px;
+  background: linear-gradient(180deg, #FFD0E8 0%, var(--pink) 100%);
+  border-radius: 10px 10px 0 0;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);
+}
 
-  /* spin indicator on capsule */
-  #capsule-shine {
-    animation: capsuleShine 2s linear infinite;
-    transform-origin: center;
-  }
-  @keyframes capsuleShine {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+/* ── BODY ── */
+.body-wrap {
+  position: relative;
+}
+.body {
+  width: 260px;
+  height: 180px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, var(--pink-light) 0%, var(--pink) 40%, var(--pink-dark) 100%);
+  border-radius: 20px 20px 40px 40px;
+  box-shadow:
+    inset 0 6px 16px rgba(255,255,255,0.45),
+    inset 0 -6px 20px rgba(0,0,0,0.15),
+    inset 6px 0 16px rgba(255,255,255,0.2),
+    inset -6px 0 16px rgba(0,0,0,0.1),
+    0 12px 40px rgba(100,0,50,0.35),
+    8px 8px 0 rgba(180,50,100,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.body::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 15px; right: 60%;
+  height: 8px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 4px;
+}
 
-  /* ─── result card ─── */
-  .result-area {
-    width: min(560px, 95vw);
-    margin-top: 28px;
-    min-height: 220px;
-    position: relative;
-    z-index: 1;
-  }
+/* panel on body */
+.body-panel {
+  position: absolute;
+  top: 28px; left: 50%; transform: translateX(-50%);
+  width: 160px;
+  height: 120px;
+  background: linear-gradient(160deg, #c94880 0%, #a83060 100%);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.3),
+    inset 0 -2px 4px rgba(255,255,255,0.1),
+    0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
-  .result-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 28px 24px 24px;
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.05) inset,
-      0 20px 60px rgba(0,0,0,0.5),
-      0 0 40px rgba(180,79,255,0.12);
-    display: none;
-    animation: cardReveal 0.5s cubic-bezier(.22,1,.36,1) both;
-  }
-  .result-card.visible { display: block; }
-  @keyframes cardReveal {
-    from { opacity: 0; transform: translateY(20px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
+/* coin slot */
+.coin-slot {
+  width: 80px;
+  height: 10px;
+  background: linear-gradient(180deg, #1a0010 0%, #3a0025 100%);
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.1);
+  position: relative;
+}
 
-  .result-card .sentence {
-    font-size: clamp(15px, 3.5vw, 19px);
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.65;
-    margin-bottom: 24px;
-    letter-spacing: -0.3px;
-  }
-  .result-card .sentence em {
-    font-style: normal;
-    padding: 2px 6px;
-    border-radius: 6px;
-    white-space: nowrap;
-  }
-  .tag-상황 { background: rgba(255,45,120,0.25); color: #ff7eb3; border: 1px solid rgba(255,45,120,0.4); }
-  .tag-장소 { background: rgba(0,245,255,0.15); color: #5ef9ff; border: 1px solid rgba(0,245,255,0.35); }
-  .tag-사람 { background: rgba(180,79,255,0.2);  color: #d499ff; border: 1px solid rgba(180,79,255,0.4); }
-  .tag-사물 { background: rgba(255,225,68,0.15); color: #ffe77a; border: 1px solid rgba(255,225,68,0.35); }
-  .tag-페인포인트 { background: rgba(255,140,0,0.2); color: #ffb84d; border: 1px solid rgba(255,140,0,0.4); }
-  .tag-기술 { background: rgba(0,255,150,0.15); color: #5dffc8; border: 1px solid rgba(0,255,150,0.35); }
+/* lever/knob area */
+.lever-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #aaa 0%, #666 50%, #333 100%);
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,255,0.4),
+    inset 0 -3px 8px rgba(0,0,0,0.5),
+    0 6px 16px rgba(0,0,0,0.4),
+    0 2px 0 rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  position: relative;
+  border: none;
+  outline: none;
+}
+.lever-btn::after {
+  content: '▶';
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.lever-btn:hover {
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,255,0.5),
+    inset 0 -3px 8px rgba(0,0,0,0.4),
+    0 8px 20px rgba(0,0,0,0.5),
+    0 0 20px rgba(255,180,220,0.4);
+}
+.lever-btn:active, .lever-btn.pressed {
+  transform: scale(0.93);
+  box-shadow:
+    inset 0 4px 10px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(255,255,255,0.2),
+    0 3px 8px rgba(0,0,0,0.4);
+}
 
-  /* postit chips */
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  .chip {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 8px 12px;
-    font-size: 11px;
-    backdrop-filter: blur(8px);
-    flex: 1 1 calc(33% - 8px);
-    min-width: 130px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .chip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-  .chip .chip-label {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-family: 'Space Grotesk', sans-serif;
-    opacity: 0.5;
-    font-weight: 700;
-  }
-  .chip .chip-value {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.4;
-  }
+/* body bottom buttons row */
+.body-buttons {
+  position: absolute;
+  bottom: 16px; left: 50%; transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.dot-btn {
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.25);
+}
+.dot-btn.white { width:18px;height:18px;background:radial-gradient(circle at 35% 30%, #fff 0%, #ccc 100%); }
+.dot-btn.yellow{ width:22px;height:22px;background:radial-gradient(circle at 35% 30%, #fff8a0 0%, #ffcc00 100%); }
+.dot-btn.red   { width:26px;height:26px;background:radial-gradient(circle at 35% 30%, #ff8080 0%, #cc0000 100%); }
 
-  /* ─── button ─── */
-  .cta-wrap {
-    display: flex;
-    justify-content: center;
-    margin-top: 28px;
-    gap: 12px;
-    flex-wrap: wrap;
-    position: relative; z-index: 1;
-  }
-  .btn {
-    border: none;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    border-radius: 100px;
-    padding: 14px 32px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: 0.5px;
-  }
-  .btn:active { transform: scale(0.95); }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--glow-purple) 0%, var(--glow-pink) 100%);
-    color: #fff;
-    box-shadow: 0 0 30px rgba(180,79,255,0.5), 0 4px 20px rgba(0,0,0,0.4);
-  }
-  .btn-primary:hover { box-shadow: 0 0 50px rgba(180,79,255,0.7), 0 4px 30px rgba(0,0,0,0.5); transform: translateY(-1px); }
-  .btn-secondary {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: rgba(255,255,255,0.7);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .btn-secondary:hover { color: #fff; border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+/* ── BASE / STAND ── */
+.base {
+  width: 240px;
+  height: 30px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--pink) 0%, var(--pink-dark) 100%);
+  border-radius: 0 0 20px 20px;
+  box-shadow:
+    inset 0 4px 8px rgba(255,255,255,0.2),
+    0 8px 20px rgba(0,0,0,0.3),
+    8px 8px 0 rgba(160,40,80,0.25);
+}
+.base-foot {
+  width: 260px;
+  height: 18px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--pink-dark) 0%, #a02060 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3), 8px 8px 0 rgba(120,20,60,0.2);
+}
 
-  /* ─── hint text ─── */
-  .hint {
-    position: relative; z-index: 1;
-    margin-top: 14px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    text-align: center;
-    letter-spacing: 0.3px;
-  }
+/* ── CAPSULE CHUTE ── */
+.chute {
+  position: absolute;
+  bottom: -8px; left: 50%; transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(180deg, #9a2050 0%, #7a1040 100%);
+  border-radius: 0 0 10px 10px;
+  box-shadow: inset 0 -3px 6px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+}
 
-  /* ─── history log ─── */
-  .history-wrap {
-    position: relative; z-index: 1;
-    width: min(560px, 95vw);
-    margin-top: 40px;
-  }
-  .history-wrap h2 {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    font-family: 'Space Grotesk', sans-serif;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-  .history-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 260px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.1) transparent;
-  }
-  .history-item {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px;
-    padding: 10px 14px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.5;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
-  .history-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8); }
-  .history-item .history-num {
-    font-size: 9px;
-    color: rgba(255,255,255,0.2);
-    font-family: 'Space Grotesk', sans-serif;
-    margin-right: 6px;
-  }
+/* ═══════════════════════════════════════
+   FALLING CAPSULE + OPEN AREA
+═══════════════════════════════════════ */
+.capsule-drop-zone {
+  width: 280px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  position: relative;
+}
 
-  /* loading dots */
-  .loading-dots {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    padding: 40px 0;
-  }
-  .loading-dots.active { display: flex; }
-  .loading-dots span {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--glow-cyan);
-    animation: dotBounce 0.9s ease-in-out infinite;
-  }
-  .loading-dots span:nth-child(2) { animation-delay: 0.15s; background: var(--glow-purple); }
-  .loading-dots span:nth-child(3) { animation-delay: 0.30s; background: var(--glow-pink); }
-  @keyframes dotBounce {
-    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-    40%           { transform: scale(1.2); opacity: 1; }
-  }
+.capsule-3d {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  cursor: pointer;
+  display: none;
+  transition: transform 0.2s;
+}
+.capsule-3d:hover { transform: scale(1.08) rotate(5deg); }
+.capsule-3d.drop-in {
+  display: block;
+  animation: capsuleFall 0.6s cubic-bezier(.22,1,.36,1) both;
+}
+.capsule-3d.opening {
+  animation: capsuleOpen 0.5s ease forwards;
+}
+@keyframes capsuleFall {
+  from { opacity: 0; transform: translateY(-80px) rotate(-20deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+@keyframes capsuleOpen {
+  0%   { transform: scale(1) rotate(0deg); }
+  50%  { transform: scale(1.3) rotate(15deg); }
+  100% { transform: scale(0) rotate(30deg); opacity: 0; }
+}
 
-  /* particle burst */
-  .particle {
-    position: fixed;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99;
-    animation: particleFly 1s ease-out forwards;
-  }
-  @keyframes particleFly {
-    0%   { opacity: 1; transform: translate(0,0) scale(1); }
-    100% { opacity: 0; transform: var(--tx) scale(0.3); }
-  }
+/* capsule SVG style */
+.capsule-3d svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)); }
 
-  @media (max-width: 480px) {
-    .chip { flex: 1 1 calc(50% - 8px); min-width: 110px; }
-    .machine-svg-wrap { width: 90vw; }
-  }
+.capsule-hint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  margin-top: 4px;
+  animation: pulse 2s ease-in-out infinite;
+  display: none;
+}
+.capsule-hint.show { display: block; }
+@keyframes pulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+
+/* ── PULL LABEL ── */
+.pull-label {
+  margin-top: 12px;
+  background: var(--yellow);
+  color: #5a3000;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 10px 28px;
+  border-radius: 100px;
+  box-shadow:
+    0 6px 0 var(--yellow-dark),
+    0 8px 16px rgba(0,0,0,0.25),
+    inset 0 2px 4px rgba(255,255,255,0.5);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+  letter-spacing: 0.5px;
+}
+.pull-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--yellow-dark), 0 12px 20px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.5);
+}
+.pull-label:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--yellow-dark), 0 4px 8px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.3);
+}
+
+/* ═══════════════════════════════════════
+   POST-IT NOTE (result)
+═══════════════════════════════════════ */
+.result-panel {
+  flex: 1;
+  min-width: 320px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note-wrap {
+  display: none;
+  animation: noteReveal 0.6s cubic-bezier(.22,1,.36,1) both;
+}
+.note-wrap.visible { display: block; }
+@keyframes noteReveal {
+  from { opacity: 0; transform: translateY(30px) rotate(-3deg) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) rotate(-1deg) scale(1); }
+}
+
+.note {
+  background: linear-gradient(175deg, #FFFDE7 0%, #FFF8C2 60%, #FFF0A0 100%);
+  border-radius: 4px 4px 4px 28px;
+  padding: 28px 28px 36px;
+  position: relative;
+  box-shadow:
+    2px 2px 0 #f9e070,
+    4px 4px 0 #f0d040,
+    6px 6px 12px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  /* paper lines */
+  background-image:
+    linear-gradient(175deg, #FFFDE7 0%, #FFF8C2 60%, #FFF0A0 100%),
+    repeating-linear-gradient(transparent, transparent 28px, rgba(100,120,200,0.08) 28px, rgba(100,120,200,0.08) 29px);
+  background-blend-mode: multiply;
+}
+/* curled corner */
+.note::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 28px; height: 28px;
+  background: linear-gradient(225deg, #FFF8C2 45%, rgba(0,0,0,0.12) 50%, rgba(200,180,50,0.3) 55%, #E8C840 100%);
+  border-radius: 0 8px 0 4px;
+  box-shadow: 2px -2px 4px rgba(0,0,0,0.1);
+}
+/* tape on top */
+.note::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 22px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.7);
+}
+
+.note-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 11px;
+  color: #8a6500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* keyword grid */
+.kw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.kw-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kw-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #a07820;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+}
+.kw-value {
+  font-size: 14px;
+  font-weight: 900;
+  color: #2a1a00;
+  line-height: 1.3;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* divider */
+.note-divider {
+  height: 1px;
+  background: repeating-linear-gradient(90deg, #c9a820 0, #c9a820 4px, transparent 4px, transparent 8px);
+  margin: 4px 0 16px;
+}
+
+/* sentences */
+.note-sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.note-sentence {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #3a2800;
+  font-weight: 400;
+  padding-left: 14px;
+  border-left: 3px solid;
+  position: relative;
+}
+.note-sentence:nth-child(1) { border-color: #ff7ab0; }
+.note-sentence:nth-child(2) { border-color: #ff9800; }
+.note-sentence:nth-child(3) { border-color: #7e57c2; }
+
+/* ── ACTION BUTTONS ── */
+.action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.action-btn {
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 100px;
+  padding: 10px 22px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.action-btn.copy {
+  background: linear-gradient(135deg, #fff 0%, #f0e8ff 100%);
+  color: #5a3090;
+  box-shadow: 0 4px 0 #c0a8e8, 0 6px 12px rgba(0,0,0,0.2);
+}
+.action-btn.copy:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 #c0a8e8, 0 8px 16px rgba(0,0,0,0.25); }
+.action-btn.copy:active { transform: translateY(2px);  box-shadow: 0 2px 0 #c0a8e8, 0 3px 6px rgba(0,0,0,0.2); }
+.action-btn.again {
+  background: linear-gradient(135deg, var(--pink-light) 0%, var(--pink) 100%);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--pink-shadow), 0 6px 12px rgba(0,0,0,0.2);
+}
+.action-btn.again:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 var(--pink-shadow), 0 8px 16px rgba(0,0,0,0.25); }
+.action-btn.again:active { transform: translateY(2px);  box-shadow: 0 2px 0 var(--pink-shadow), 0 3px 6px rgba(0,0,0,0.2); }
+
+/* ── HISTORY ── */
+.history-section {
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 24px;
+  margin-top: 40px;
+  display: none;
+}
+.history-section.show { display: block; }
+.history-section h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 12px;
+}
+.history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.history-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.history-chip:hover { background: rgba(255,255,255,0.22); color: #fff; }
+
+/* ── LOADING ── */
+.loading-row {
+  display: none;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.loading-row.show { display: flex; }
+.ld { width:12px;height:12px;border-radius:50%;animation:ld .8s ease-in-out infinite; }
+.ld:nth-child(1){background:var(--pink);animation-delay:0s;}
+.ld:nth-child(2){background:var(--yellow);animation-delay:.15s;}
+.ld:nth-child(3){background:#a0f0c0;animation-delay:.3s;}
+@keyframes ld {
+  0%,80%,100%{transform:scale(0.5);opacity:0.4;}
+  40%{transform:scale(1.3);opacity:1;}
+}
+
+/* ── PARTICLES ── */
+.particle {
+  position: fixed;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  animation: pfly 0.9s ease-out forwards;
+}
+@keyframes pfly {
+  0%  { opacity:1; transform:translate(0,0) scale(1); }
+  100%{ opacity:0; transform:var(--pt) scale(0.2); }
+}
+
+@media (max-width: 720px) {
+  .stage { flex-direction: column; align-items: center; gap: 24px; }
+  .result-panel { max-width: 100%; }
+}
 </style>
 </head>
 <body>
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
-
-<header>
-  <div class="eyebrow">Design Inspiration Engine</div>
-  <h1>일상의 틈새</h1>
-  <p>레버를 당기면 뻔하지 않은 영감 조합이 튀어나온다</p>
-</header>
-
-<!-- ════════════════════════════════════════
-     GACHA MACHINE SVG
-     ════════════════════════════════════════ -->
-<div class="machine-wrap">
-  <div class="machine-svg-wrap" id="machineSvg" title="레버를 당겨 가챠!">
-  <svg viewBox="0 0 320 480" xmlns="http://www.w3.org/2000/svg" fill="none">
-    <defs>
-      <!-- body gradient -->
-      <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"   stop-color="#2a1a4e"/>
-        <stop offset="50%"  stop-color="#1a0d35"/>
-        <stop offset="100%" stop-color="#0f0824"/>
-      </linearGradient>
-      <!-- top dome gradient -->
-      <radialGradient id="domeGrad" cx="50%" cy="30%" r="70%">
-        <stop offset="0%"   stop-color="rgba(0,245,255,0.5)"/>
-        <stop offset="40%"  stop-color="rgba(100,0,200,0.25)"/>
-        <stop offset="100%" stop-color="rgba(0,0,0,0.6)"/>
-      </radialGradient>
-      <!-- dome glass shine -->
-      <radialGradient id="domeShine" cx="35%" cy="25%" r="50%">
-        <stop offset="0%"   stop-color="rgba(255,255,255,0.35)"/>
-        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-      </radialGradient>
-      <!-- ball colors -->
-      <radialGradient id="ball1" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#ff6eb4"/>
-        <stop offset="100%" stop-color="#b200ff"/>
-      </radialGradient>
-      <radialGradient id="ball2" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#60f9ff"/>
-        <stop offset="100%" stop-color="#0070ff"/>
-      </radialGradient>
-      <radialGradient id="ball3" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#ffe566"/>
-        <stop offset="100%" stop-color="#ff8800"/>
-      </radialGradient>
-      <radialGradient id="ball4" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#7fff9a"/>
-        <stop offset="100%" stop-color="#00b86b"/>
-      </radialGradient>
-      <radialGradient id="ball5" cx="35%" cy="30%" r="65%">
-        <stop offset="0%" stop-color="#ffc7a0"/>
-        <stop offset="100%" stop-color="#ff4040"/>
-      </radialGradient>
-      <!-- capsule -->
-      <radialGradient id="capsuleGrad" cx="35%" cy="25%" r="75%">
-        <stop offset="0%"   stop-color="rgba(255,255,255,0.75)"/>
-        <stop offset="50%"  stop-color="rgba(100,220,255,0.35)"/>
-        <stop offset="100%" stop-color="rgba(0,100,200,0.1)"/>
-      </radialGradient>
-      <!-- base gradient -->
-      <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#1e1040"/>
-        <stop offset="100%" stop-color="#0a0520"/>
-      </linearGradient>
-      <!-- coin slot metal -->
-      <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#9060ff"/>
-        <stop offset="100%" stop-color="#5020a0"/>
-      </linearGradient>
-      <!-- lever -->
-      <linearGradient id="leverGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"   stop-color="#ff2d78"/>
-        <stop offset="100%" stop-color="#c200a0"/>
-      </linearGradient>
-      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur stdDeviation="4" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="8" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <clipPath id="domeClip">
-        <ellipse cx="131" cy="185" rx="82" ry="98"/>
-      </clipPath>
-    </defs>
-
-    <!-- ── Base / Stand ── -->
-    <rect x="55" y="400" width="210" height="32" rx="14" fill="url(#baseGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-    <rect x="70" y="425" width="180" height="18" rx="9" fill="#0a0520" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-    <!-- feet -->
-    <rect x="72" y="437" width="40" height="10" rx="5" fill="#100630"/>
-    <rect x="208" y="437" width="40" height="10" rx="5" fill="#100630"/>
-
-    <!-- ── Body ── -->
-    <rect x="50" y="270" width="220" height="142" rx="22" fill="url(#bodyGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
-    <!-- body inner bevel top -->
-    <rect x="55" y="273" width="210" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <!-- body inner bevel left -->
-    <rect x="53" y="270" width="6" height="142" rx="3" fill="rgba(255,255,255,0.04)"/>
-
-    <!-- panel stripe deco -->
-    <rect x="70" y="300" width="180" height="2" rx="1" fill="rgba(0,245,255,0.15)"/>
-    <rect x="70" y="390" width="180" height="2" rx="1" fill="rgba(0,245,255,0.15)"/>
-
-    <!-- ── Coin / Button panel ── -->
-    <!-- coin slot -->
-    <rect x="175" y="315" width="60" height="20" rx="8" fill="url(#metalGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-    <text x="205" y="329" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)" font-family="Space Grotesk,sans-serif" font-weight="700" letter-spacing="1">PULL</text>
-
-    <!-- three deco lights -->
-    <circle cx="185" cy="358" r="6" fill="#ff2d78" filter="url(#glow)" opacity="0.9"/>
-    <circle cx="205" cy="358" r="6" fill="#00f5ff" filter="url(#glow)" opacity="0.9"/>
-    <circle cx="225" cy="358" r="6" fill="#b44fff" filter="url(#glow)" opacity="0.9"/>
-
-    <!-- label plate -->
-    <rect x="60" y="305" width="100" height="80" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-    <text x="110" y="328" text-anchor="middle" font-size="8" fill="rgba(0,245,255,0.8)" font-family="Space Grotesk,sans-serif" letter-spacing="2">INSPIRATION</text>
-    <text x="110" y="345" text-anchor="middle" font-size="13" fill="#fff" font-family="Noto Sans KR,sans-serif" font-weight="900">일상의 틈새</text>
-    <text x="110" y="362" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.4)" font-family="Space Grotesk,sans-serif">GACHA MACHINE</text>
-    <text x="110" y="376" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.3)" font-family="Noto Sans KR,sans-serif">영감을 뽑아보세요</text>
-
-    <!-- capsule exit chute -->
-    <rect x="55" y="392" width="90" height="18" rx="9" fill="#0d0825" stroke="rgba(0,245,255,0.25)" stroke-width="1.5"/>
-    <text x="100" y="405" text-anchor="middle" font-size="8" fill="rgba(0,245,255,0.4)" font-family="Space Grotesk,sans-serif" letter-spacing="1">출구</text>
-
-    <!-- ── Dome neck ── -->
-    <rect x="85" y="252" width="92" height="26" rx="0" fill="#180a38" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-    <rect x="85" y="252" width="92" height="6" fill="rgba(255,255,255,0.05)"/>
-    <!-- neck highlight rings -->
-    <line x1="85" y1="262" x2="177" y2="262" stroke="rgba(0,245,255,0.2)" stroke-width="1"/>
-    <line x1="85" y1="270" x2="177" y2="270" stroke="rgba(0,245,255,0.1)" stroke-width="1"/>
-
-    <!-- ── Dome (transparent sphere) ── -->
-    <!-- dome shadow base -->
-    <ellipse cx="131" cy="187" rx="84" ry="100" fill="rgba(0,0,10,0.7)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-    <!-- dome glass body -->
-    <ellipse cx="131" cy="185" rx="82" ry="98" fill="url(#domeGrad)"/>
-    <!-- balls inside hopper -->
-    <g clip-path="url(#domeClip)">
-      <circle class="ball-inner" cx="105" cy="210" r="22" fill="url(#ball1)" opacity="0.92" filter="url(#glow)"/>
-      <circle class="ball-inner" cx="148" cy="220" r="20" fill="url(#ball2)" opacity="0.88" filter="url(#glow)"/>
-      <circle class="ball-inner" cx="125" cy="175" r="18" fill="url(#ball3)" opacity="0.85" filter="url(#glow)"/>
-      <circle class="ball-inner" cx="160" cy="178" r="16" fill="url(#ball4)" opacity="0.80" filter="url(#glow)"/>
-      <circle class="ball-inner" cx="95"  cy="160" r="14" fill="url(#ball5)" opacity="0.75" filter="url(#glow)"/>
-      <!-- extra small scattered -->
-      <circle cx="138" cy="140" r="10" fill="url(#ball1)" opacity="0.5"/>
-      <circle cx="115" cy="240" r="9"  fill="url(#ball4)" opacity="0.4"/>
-      <circle cx="155" cy="248" r="8"  fill="url(#ball3)" opacity="0.35"/>
-    </g>
-    <!-- dome shine overlay -->
-    <ellipse cx="131" cy="185" rx="82" ry="98" fill="url(#domeShine)"/>
-    <!-- dome rim -->
-    <ellipse cx="131" cy="185" rx="82" ry="98" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="none"/>
-    <!-- dome edge highlight -->
-    <path d="M 65 155 Q 55 185 70 220" stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M 68 148 Q 60 180 74 215" stroke="rgba(255,255,255,0.12)" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-    <!-- ── Lever ── -->
-    <g id="lever-group">
-      <!-- lever base mount -->
-      <circle cx="242" cy="285" r="12" fill="#1e1040" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-      <circle cx="242" cy="285" r="7" fill="rgba(180,79,255,0.6)" filter="url(#glow)"/>
-      <!-- lever shaft -->
-      <rect x="239" y="230" width="7" height="58" rx="3.5" fill="url(#leverGrad)"/>
-      <!-- lever knob -->
-      <circle cx="242" cy="225" r="14" fill="url(#leverGrad)" filter="url(#glowStrong)"/>
-      <circle cx="242" cy="225" r="14" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="238" cy="221" r="5" fill="rgba(255,255,255,0.4)"/>
-      <!-- knob ring -->
-      <circle cx="242" cy="225" r="14" stroke="rgba(255,100,150,0.6)" stroke-width="2" fill="none"/>
-    </g>
-
-    <!-- ── Capsule (ejected) ── -->
-    <g id="capsule-group">
-      <ellipse cx="96" cy="408" rx="18" ry="18" fill="url(#capsuleGrad)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" opacity="0.9"/>
-      <!-- capsule inner glow -->
-      <ellipse cx="91" cy="403" rx="10" ry="8" fill="rgba(255,255,255,0.2)"/>
-      <!-- capsule spin ring -->
-      <ellipse cx="96" cy="408" rx="18" ry="18" stroke="rgba(0,245,255,0.6)" stroke-width="1.5" stroke-dasharray="6 4" fill="none" id="capsule-shine"/>
-    </g>
-
-    <!-- top chrome cap -->
-    <ellipse cx="131" cy="88" rx="30" ry="10" fill="#1a0a3a" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-    <ellipse cx="131" cy="85" rx="28" ry="8" fill="rgba(255,255,255,0.08)"/>
-    <!-- top antenna bolt -->
-    <circle cx="131" cy="77" r="6" fill="var(--glow-cyan)" filter="url(#glowStrong)" opacity="0.9"/>
-    <circle cx="131" cy="77" r="3" fill="#fff"/>
-  </svg>
-  </div>
-
-  <div class="cta-wrap">
-    <button class="btn btn-primary" id="gachaBtn">🎰 레버 당기기</button>
-    <button class="btn btn-secondary" id="copyBtn" style="display:none">복사하기</button>
-  </div>
-  <p class="hint">또는 기계 이미지를 직접 클릭해도 됩니다</p>
+<!-- TITLE -->
+<div class="page-title">
+  <h1>Design Seed <span>Gatcha!</span></h1>
+  <p>레버를 눌러 영감의 씨앗을 뽑아보세요</p>
 </div>
 
-<!-- result -->
-<div class="result-area">
-  <div class="loading-dots" id="loadingDots">
-    <span></span><span></span><span></span>
+<!-- STAGE -->
+<div class="stage">
+
+  <!-- LEFT: MACHINE -->
+  <div class="machine-container">
+    <div class="machine" id="machine">
+
+      <!-- top cap -->
+      <div class="dome-cap"></div>
+
+      <!-- dome sphere -->
+      <div class="dome-wrap">
+        <div class="dome">
+          <div class="balls-inside">
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+            <div class="ball"></div><div class="ball"></div><div class="ball"></div>
+          </div>
+          <div class="dome-shine"></div>
+          <div class="dome-shine2"></div>
+        </div>
+      </div>
+
+      <!-- collar -->
+      <div class="dome-collar"></div>
+
+      <!-- body -->
+      <div class="body-wrap">
+        <div class="body">
+          <div class="body-panel">
+            <div class="coin-slot"></div>
+            <button class="lever-btn" id="leverBtn" title="레버 당기기"></button>
+          </div>
+          <div class="body-buttons">
+            <div class="dot-btn white"></div>
+            <div class="dot-btn yellow"></div>
+            <div class="dot-btn red"></div>
+          </div>
+          <div class="chute"></div>
+        </div>
+      </div>
+
+      <!-- base -->
+      <div class="base"></div>
+      <div class="base-foot"></div>
+    </div>
+
+    <!-- capsule drop zone -->
+    <div class="capsule-drop-zone">
+      <div>
+        <div class="capsule-3d" id="capsule3d">
+          <!-- capsule SVG: top half red, bottom half yellow, 3D shading -->
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="capTopGrad" cx="38%" cy="28%" r="70%">
+                <stop offset="0%" stop-color="#ff9999"/>
+                <stop offset="60%" stop-color="#ff4466"/>
+                <stop offset="100%" stop-color="#cc1133"/>
+              </radialGradient>
+              <radialGradient id="capBotGrad" cx="38%" cy="28%" r="70%">
+                <stop offset="0%" stop-color="#fff8a0"/>
+                <stop offset="55%" stop-color="#ffdd00"/>
+                <stop offset="100%" stop-color="#cc9900"/>
+              </radialGradient>
+              <radialGradient id="capShine" cx="35%" cy="25%" r="55%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.65)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </radialGradient>
+              <clipPath id="topHalf"><rect x="0" y="0" width="80" height="42"/></clipPath>
+              <clipPath id="botHalf"><rect x="0" y="38" width="80" height="42"/></clipPath>
+            </defs>
+            <!-- shadow -->
+            <ellipse cx="40" cy="74" rx="28" ry="6" fill="rgba(0,0,0,0.2)"/>
+            <!-- bottom half -->
+            <ellipse cx="40" cy="50" rx="28" ry="22" fill="url(#capBotGrad)" clip-path="url(#botHalf)"/>
+            <!-- top half (overlaps slightly for seam) -->
+            <ellipse cx="40" cy="32" rx="28" ry="26" fill="url(#capTopGrad)" clip-path="url(#topHalf)"/>
+            <!-- full sphere shine -->
+            <ellipse cx="40" cy="40" rx="28" ry="26" fill="url(#capShine)"/>
+            <!-- seam line -->
+            <line x1="12" y1="40" x2="68" y2="40" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+            <!-- rim highlight -->
+            <ellipse cx="40" cy="40" rx="28" ry="26" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="capsule-hint" id="capsuleHint">캡슐을 클릭해서 열기!</div>
+      </div>
+    </div>
+
+    <button class="pull-label" id="pullBtn">🎰 레버 당기기</button>
   </div>
-  <div class="result-card" id="resultCard">
-    <div class="sentence" id="resultSentence"></div>
-    <div class="chips" id="resultChips"></div>
+
+  <!-- RIGHT: RESULT PANEL -->
+  <div class="result-panel">
+    <div class="loading-row" id="loadingRow">
+      <div class="ld"></div><div class="ld"></div><div class="ld"></div>
+    </div>
+
+    <div class="note-wrap" id="noteWrap">
+      <div class="note">
+        <div class="note-title">✦ Design Seed ✦</div>
+        <div class="kw-grid" id="kwGrid"></div>
+        <div class="note-divider"></div>
+        <div class="note-sentences" id="noteSentences"></div>
+      </div>
+    </div>
+
+    <div class="action-row" id="actionRow" style="display:none">
+      <button class="action-btn copy" id="copyBtn">📋 복사하기</button>
+      <button class="action-btn again" id="againBtn">🔄 다시 뽑기</button>
+    </div>
   </div>
 </div>
 
-<!-- history -->
-<div class="history-wrap" id="historyWrap" style="display:none">
-  <h2>뽑기 기록</h2>
+<!-- HISTORY -->
+<div class="history-section" id="historySection">
+  <h3>뽑기 기록</h3>
   <div class="history-list" id="historyList"></div>
 </div>
 
 <script>
-/* ─── DATA ─────────────────────────────────────────── */
+/* ── DATA ─────────────────────────────────────────────── */
 const DATA = {
-  상황: [
-    "기상/출근","등교","운전 중","혼자 있을 때","장을 본 후 정리할 때",
-    "졸리지만 뭔가 해야 할 때","누군가에게 보여주고 싶은 순간","무언가에 몰입하고 있을 때",
-    "무언가를 놓치고 지나친 것 같은 느낌이 들 때","걷거나 달릴 때","샤워하거나 세면대 앞",
-    "요리할 때","아이디어가 떠올랐을 때","소리를 듣기 어려운 상황 (지하철, 공사장)",
-    "함께 있지만 대화가 어색할 때","가방을 열고 뭘 찾고 있을 때",
-    "방금 전에 뭘 했는지 기억 안 날 때","말 걸기 망설여지는 타이밍","집중이 필요할 때",
-    "공공장소에서 기다릴 때","친구들과 대화할 때","비가 오는데 우산이 없을 때",
-    "말로 표현하기 어려운 감정을 느낄 때","카메라로 찍고 싶은데 손이 바쁠 때",
-    "새로운 공간에 처음 왔을 때","끝내야 할 일을 미루고 있을 때"
-  ],
-  장소: [
-    "집","사무실","지하철","버스","병원","콘서트장","공연장","엘리베이터 안","편의점",
-    "가로등 없는 골목","작은 공방","동물 병원","지하 주차장","러닝머신 위",
-    "사이클 위","미용실 의자","학교","공원","카페","자동차 안","해변","세탁실",
-    "버스 정류장","학교 사물함 앞","병원 대기실","주차장 출구","셀프 빨래방",
-    "창가 자리","포장 음식 무인 수령함","공항","헬스장","화장실","캠핑장",
-    "냉장고 앞","고속도로","무인매장","퇴근 후 조용한 집 거실","물리치료 병원",
-    "현관","찜질방"
-  ],
-  사람: [
-    "혼자 사는 20대","아기 키우는 부모","3교대 근무자","스마트폰 중독자",
-    "멀티태스킹이 많은 직장인","혼자 사는 고령자","종이 메모에 의존하는 사람",
-    "디지털 디톡스 중인 사람","말 없이 관찰하는 사람",
-    "아날로그에 애정이 있지만 디지털도 쓰는 사람","기분을 숨기는 사람",
-    "발표 때만 말 많아지는 사람","조용하지만 타이핑은 세게 치는 사람",
-    "매일 기록을 시도하지만 실패하는 사람","ADHD 혹은 산만한 사람","시니어",
-    "감정 기복이 심한 사람","창작자 크리에이터","새로운 기술에 익숙하지 않은 사람",
-    "왼손잡이","감정 표현이 서툰 사람","이중언어 사용자","시력이 낮은 사람",
-    "기술에 능한 사람","임산부 혹은 다이어터","텍스트를 선호하는 사람",
-    "'누구에게 보여주기'가 중요한 사람","예민한 청결 강박","제일 먼저 나가는 사람",
-    "알람 7개 맞추고도 못 일어나는 사람","메모장에 모든 걸 쓰는 사람",
-    "물건을 자주 잃어버리는 사람","제품 설치에 서툰 사람",
-    "소지품을 매일 바꾸는 사람","망설이는 손을 가진 사람","자주 혼잣말 하는 사람",
-    "늘 들고 다니는 것들이 있는 사람","공부 시작 전 셋팅이 긴 사람",
-    "음악 안 켜면 공부 안 되는 사람","주변 시선에 민감한 사람",
-    "부모가 된 후 자기 시간이 줄어든 사람"
-  ],
-  사물: [
-    "스마트폰","이어폰","헤드폰","알람 시계","책상","침대","베개",
-    "팔찌","반지","목걸이","수건걸이","책갈피","텀블러","코스터 (컵 받침)",
-    "식물 화분 받침대","스마트워치 밴드","백팩 끈","의자","거울","우산",
-    "도어락","식기류","손잡이","택배 상자","폰 케이스","쿠션","담요",
-    "식탁","매트","창문 커튼","의자 다리","CCTV","탁상용 선풍기",
-    "콘센트","충전기","수건","욕실 용품","리모컨","신발","노트","펜",
-    "도어 스토퍼","옷걸이","헤어드라이어","벽걸이 시계","실내 슬리퍼",
-    "핸드크림","책상 모서리","우산 손잡이","노트북"
-  ],
-  페인포인트: [
-    "무엇을 먼저 해야 할지 모르겠음","집중이 어려움","푸시 알림 과잉",
-    "반복되는 루틴에 지루함","까먹음","감정 표현이 어려움","잊혀질 권리",
-    "신체 변화에 따라 제품이 불편해짐","손이 자유롭지 않아 조작이 어려움",
-    "손이 모자람","균형이 무너짐","발표만 하면 목 마름","카페 자리 뺏김",
-    "공부 시작 전 유튜브","필기하다가 꺼짐","정보 과부하",
-    "연결은 되어 있지만 고립감","기술을 잘 모름","제품 사용법이 직관적이지 않음",
-    "집중하려는데 자꾸 외부 자극이 들어옴","지금 필요한 물건이 어디 있는지 기억 안 남",
-    "사용 후 원래 자리에 두는 게 귀찮음","타이밍 오류","너무 많은 가능성",
-    "나만 모름","발표 때 손 어디 둘지 모름","잘못 보낸 단톡 사진",
-    "수업 중 몰래 먹기","강의 중 웃참 실패","손이 젖어 터치를 못함",
-    "미묘한 감정 상태가 기록되지 않음","알림을 봤지만 다시 찾기 어려움",
-    "타인에게 현재 상태를 설명하기 어려움","조용한 공간에서 알림이 시끄러움",
-    "정보가 분산되어 있음","컨디션이 안 좋을 때 누가 챙겨주지 않음",
-    "물건이 내 상태나 기분을 알아차리지 못함","뒤늦은 인식",
-    "분명한데 전달이 안 됨","비슷한 이름의 폴더가 너무 많음",
-    "시험 전날 청소","중요한 걸 캡처로만 남김"
-  ],
-  기술: [
-    "제스처 인식","위치 기반 서비스","개인화 알고리즘","웨어러블 센서","잔상",
-    "필터링","미세한 진동","공간 메모리","바람 감지","말 없이 반응",
-    "지속 가능한 기술","감정 분석","수면 데이터","반응형 인터페이스",
-    "실시간 얼굴 감정 스캐닝","자석 기반 결합 분리","공간 기반 AR",
-    "마찰력 조절이 가능한 소재","흔들리면 기록","연필 끝으로 조작",
-    "스치면 반응","뚜껑 여닫기 반응","탄소 저감 기술","맥락 기반 UI",
-    "촉각 피드백","시선 추적","기후 센싱 (온도 습도)","공기질·조도에 반응하는 인터페이스",
-    "실시간 심박·스트레스 변화 감지","객체 간 연결 상태 시각화 기술",
-    "손등 터치","그림자 센서","숨 쉬듯 연결됨","헛기침 인식"
-  ]
+  상황: ["기상/출근","등교","운전 중","혼자 있을 때","장을 본 후 정리할 때","졸리지만 뭔가 해야 할 때","누군가에게 보여주고 싶은 순간","무언가에 몰입하고 있을 때","무언가를 놓치고 지나친 것 같은 느낌이 들 때","걷거나 달릴 때","샤워하거나 세면대 앞","요리할 때","아이디어가 떠올랐을 때","소리를 듣기 어려운 상황 (지하철·공사장)","함께 있지만 대화가 어색할 때","가방을 열고 뭘 찾고 있을 때","방금 뭘 했는지 기억 안 날 때","말 걸기 망설여지는 타이밍","집중이 필요할 때","공공장소에서 기다릴 때","친구들과 대화할 때","비가 오는데 우산이 없을 때","말로 표현하기 어려운 감정을 느낄 때","카메라로 찍고 싶은데 손이 바쁠 때","새로운 공간에 처음 왔을 때","끝내야 할 일을 미루고 있을 때"],
+  장소: ["집","사무실","지하철","버스","병원","콘서트장","공연장","엘리베이터 안","편의점","가로등 없는 골목","작은 공방","동물 병원","지하 주차장","러닝머신 위","미용실 의자","학교","공원","카페","자동차 안","해변","세탁실","버스 정류장","학교 사물함 앞","병원 대기실","주차장 출구","셀프 빨래방","창가 자리","포장 음식 무인 수령함","공항","헬스장","화장실","캠핑장","냉장고 앞","고속도로","무인매장","조용한 집 거실","물리치료 병원","현관","찜질방"],
+  사람: ["혼자 사는 20대","아기 키우는 부모","3교대 근무자","스마트폰 중독자","멀티태스킹이 많은 직장인","혼자 사는 고령자","종이 메모에 의존하는 사람","디지털 디톡스 중인 사람","말 없이 관찰하는 사람","아날로그를 사랑하지만 디지털도 쓰는 사람","기분을 숨기는 사람","발표 때만 말 많아지는 사람","조용하지만 타이핑은 세게 치는 사람","매일 기록을 시도하지만 실패하는 사람","ADHD 혹은 산만한 사람","시니어","감정 기복이 심한 사람","창작자·크리에이터","새로운 기술에 익숙하지 않은 사람","왼손잡이","감정 표현이 서툰 사람","이중언어 사용자","시력이 낮은 사람","기술에 능한 사람","임산부 혹은 다이어터","텍스트를 선호하는 사람","'누구에게 보여주기'가 중요한 사람","예민한 청결 강박","알람 7개 맞추고도 못 일어나는 사람","물건을 자주 잃어버리는 사람","소지품을 매일 바꾸는 사람","자주 혼잣말 하는 사람","공부 시작 전 셋팅이 긴 사람","주변 시선에 민감한 사람","부모가 된 후 자기 시간이 줄어든 사람"],
+  사물: ["스마트폰","이어폰","헤드폰","알람 시계","책상","침대·베개","팔찌·반지·목걸이","수건걸이","책갈피","텀블러","코스터 (컵 받침)","식물 화분 받침대","스마트워치 밴드","백팩 끈","의자","거울","우산","도어락","식기류","손잡이","택배 상자","폰 케이스","쿠션·담요","식탁·매트","창문 커튼","CCTV","탁상용 선풍기","콘센트·충전기","수건·욕실 용품","리모컨","신발","노트","펜","도어 스토퍼","옷걸이","헤어드라이어","벽걸이 시계","실내 슬리퍼","핸드크림","노트북"],
+  페인포인트: ["무엇을 먼저 해야 할지 모르겠음","집중이 어려움","푸시 알림 과잉","반복되는 루틴에 지루함","까먹음","감정 표현이 어려움","잊혀질 권리","신체 변화에 따라 제품이 불편해짐","손이 자유롭지 않아 조작이 어려움","손이 모자람","균형이 무너짐","정보 과부하","연결은 되어 있지만 고립감","기술을 잘 모름","제품 사용법이 직관적이지 않음","집중하려는데 자꾸 외부 자극이 들어옴","지금 필요한 물건이 어디 있는지 기억 안 남","사용 후 원래 자리에 두는 게 귀찮음","타이밍 오류","너무 많은 가능성","나만 모름","발표 때 손 어디 둘지 모름","손이 젖어 터치를 못함","미묘한 감정 상태가 기록되지 않음","알림을 봤지만 다시 찾기 어려움","타인에게 현재 상태를 설명하기 어려움","조용한 공간에서 알림이 시끄러움","정보가 분산되어 있음","컨디션이 안 좋을 때 누가 챙겨주지 않음","물건이 내 상태나 기분을 알아차리지 못함","뒤늦은 인식","분명한데 전달이 안 됨","중요한 걸 캡처로만 남김"],
+  기술: ["제스처 인식","위치 기반 서비스","개인화 알고리즘","웨어러블 센서","잔상","필터링","미세한 진동","공간 메모리","바람 감지","말 없이 반응","지속 가능한 기술","감정 분석","수면 데이터","반응형 인터페이스","실시간 얼굴 감정 스캐닝","자석 기반 결합·분리","공간 기반 AR","마찰력 조절 소재","흔들리면 기록","연필 끝으로 조작","스치면 반응","뚜껑 여닫기 반응","탄소 저감 기술","맥락 기반 UI","촉각 피드백","시선 추적","기후 센싱 (온도·습도)","공기질·조도에 반응하는 인터페이스","실시간 심박·스트레스 변화 감지","객체 간 연결 상태 시각화","손등 터치","그림자 센서","숨 쉬듯 연결됨","헛기침 인식"]
 };
 
-const CATEGORY_COLORS = {
-  상황: 'tag-상황',
-  장소: 'tag-장소',
-  사람: 'tag-사람',
-  사물: 'tag-사물',
-  페인포인트: 'tag-페인포인트',
-  기술: 'tag-기술'
-};
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-const SENTENCE_TEMPLATES = [
-  (d) => `<em class="${CATEGORY_COLORS.사람}">${d.사람}</em>이 <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em> 상황에 처했을 때, <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>을 통해 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>라는 문제를 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>으로 해결하려면?`,
-  (d) => `<em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>에 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 더하면 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>를 해소할 수 있을까?`,
-  (d) => `<em class="${CATEGORY_COLORS.사물}">${d.사물}</em>이 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 만나면, <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에서 <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>가 달라진다.`,
-  (d) => `<em class="${CATEGORY_COLORS.상황}">${d.상황}</em>의 순간, <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에 있는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>은 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>에서 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>를 느낀다. 여기에 <em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 심는다면?`,
-  (d) => `<em class="${CATEGORY_COLORS.기술}">${d.기술}</em>을 품은 <em class="${CATEGORY_COLORS.사물}">${d.사물}</em>이 <em class="${CATEGORY_COLORS.장소}">${d.장소}</em>에 있다면, <em class="${CATEGORY_COLORS.상황}">${d.상황}</em>하는 <em class="${CATEGORY_COLORS.사람}">${d.사람}</em>의 <em class="${CATEGORY_COLORS.페인포인트}">${d.페인포인트}</em>는 어떻게 풀릴까?`,
-];
-
-/* ─── UTILS ────────────────────────────────────────── */
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-function roll() {
-  return {
-    상황: pick(DATA.상황),
-    장소: pick(DATA.장소),
-    사람: pick(DATA.사람),
-    사물: pick(DATA.사물),
-    페인포인트: pick(DATA.페인포인트),
-    기술: pick(DATA.기술),
-  };
+function roll(){
+  return { 상황:pick(DATA.상황), 장소:pick(DATA.장소), 사람:pick(DATA.사람), 사물:pick(DATA.사물), 페인포인트:pick(DATA.페인포인트), 기술:pick(DATA.기술) };
 }
 
-/* ─── STATE ─────────────────────────────────────────── */
-let history = [];
-let currentDraw = null;
+function makeSentences(d){
+  return [
+    `${d.장소}에서 ${d.상황}하는 ${d.사람}이 느끼는 "${d.페인포인트}"를, ${d.사물}과 ${d.기술}로 해소하는 방법은?`,
+    `${d.사물}이 ${d.기술}을 품는다면, ${d.장소}의 ${d.사람}에게 ${d.상황} 순간 어떤 변화가 생길까?`,
+    `"${d.페인포인트}"라는 문제를 ${d.기술}로 풀 때, ${d.장소}에 있는 ${d.사람}의 ${d.사물}은 어떻게 달라져야 할까?`
+  ];
+}
+
+/* ── DOM ──────────────────────────────────────────────── */
+const machine     = document.getElementById('machine');
+const leverBtn    = document.getElementById('leverBtn');
+const pullBtn     = document.getElementById('pullBtn');
+const capsule3d   = document.getElementById('capsule3d');
+const capsuleHint = document.getElementById('capsuleHint');
+const loadingRow  = document.getElementById('loadingRow');
+const noteWrap    = document.getElementById('noteWrap');
+const kwGrid      = document.getElementById('kwGrid');
+const noteSentences=document.getElementById('noteSentences');
+const actionRow   = document.getElementById('actionRow');
+const copyBtn     = document.getElementById('copyBtn');
+const againBtn    = document.getElementById('againBtn');
+const historySection=document.getElementById('historySection');
+const historyList = document.getElementById('historyList');
+
 let animating = false;
+let currentDraw = null;
+let historyLog = [];
 
-/* ─── DOM ───────────────────────────────────────────── */
-const gachaBtn   = document.getElementById('gachaBtn');
-const copyBtn    = document.getElementById('copyBtn');
-const machineSvg = document.getElementById('machineSvg');
-const leverGroup = document.getElementById('lever-group');
-const capsuleGrp = document.getElementById('capsule-group');
-const loadingDots= document.getElementById('loadingDots');
-const resultCard = document.getElementById('resultCard');
-const resultSent = document.getElementById('resultSentence');
-const resultChips= document.getElementById('resultChips');
-const historyWrap= document.getElementById('historyWrap');
-const historyList= document.getElementById('historyList');
-
-/* ─── PARTICLES ─────────────────────────────────────── */
-function spawnParticles(x, y) {
-  const colors = ['#ff2d78','#00f5ff','#b44fff','#ffe144','#5dffc8'];
-  for (let i = 0; i < 16; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const angle = (Math.PI * 2 * i) / 16 + (Math.random() - 0.5) * 0.6;
-    const dist  = 60 + Math.random() * 80;
-    const tx    = Math.cos(angle) * dist;
-    const ty    = Math.sin(angle) * dist - 20;
-    p.style.cssText = `
-      left:${x - 4}px; top:${y - 4}px;
-      background:${colors[i % colors.length]};
-      --tx: translate(${tx}px, ${ty}px);
-      animation-duration: ${0.7 + Math.random() * 0.5}s;
-    `;
+/* ── PARTICLES ─────────────────────────────────────────── */
+function burst(x, y){
+  const colors=['#FF8DC7','#FFD84D','#a0f0c0','#80cfff','#ff6b6b','#c8a0ff'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const a=(Math.PI*2*i)/18+(Math.random()-.5)*.8;
+    const r=50+Math.random()*90;
+    p.style.cssText=`left:${x-5}px;top:${y-5}px;background:${colors[i%colors.length]};--pt:translate(${Math.cos(a)*r}px,${Math.sin(a)*r-20}px);animation-duration:${.6+Math.random()*.5}s;`;
     document.body.appendChild(p);
-    p.addEventListener('animationend', () => p.remove());
+    p.addEventListener('animationend',()=>p.remove());
   }
 }
 
-/* ─── GACHA LOGIC ───────────────────────────────────── */
-function triggerGacha(evt) {
-  if (animating) return;
-  animating = true;
-  gachaBtn.disabled = true;
-  gachaBtn.textContent = '뽑는 중...';
-  copyBtn.style.display = 'none';
+/* ── GACHA PULL ─────────────────────────────────────────── */
+function startPull(evt){
+  if(animating) return;
+  animating=true;
+  pullBtn.disabled=true;
+  pullBtn.textContent='뽑는 중...';
 
-  // lever animation
-  leverGroup.classList.remove('pull');
-  void leverGroup.offsetWidth;
-  leverGroup.classList.add('pull');
+  // machine shake
+  machine.classList.remove('shake');
+  void machine.offsetWidth;
+  machine.classList.add('shake');
 
-  // capsule drop
-  capsuleGrp.classList.remove('drop');
-  void capsuleGrp.offsetWidth;
-  capsuleGrp.classList.add('drop');
+  // lever press
+  leverBtn.classList.add('pressed');
+  setTimeout(()=>leverBtn.classList.remove('pressed'), 400);
 
-  // hide old result
-  resultCard.classList.remove('visible');
-  loadingDots.classList.add('active');
+  // hide previous
+  noteWrap.classList.remove('visible');
+  capsule3d.classList.remove('drop-in');
+  capsuleHint.classList.remove('show');
+  actionRow.style.display='none';
 
-  // particle burst from button or click position
-  const rect = (evt && evt.currentTarget && evt.currentTarget !== machineSvg)
-    ? evt.currentTarget.getBoundingClientRect()
-    : gachaBtn.getBoundingClientRect();
-  const px = rect.left + rect.width  / 2;
-  const py = rect.top  + rect.height / 2;
-  setTimeout(() => spawnParticles(px, py), 420);
+  loadingRow.classList.add('show');
 
-  // reveal after delay
-  setTimeout(() => {
-    loadingDots.classList.remove('active');
-    const draw = roll();
-    currentDraw = draw;
-    const tmpl = SENTENCE_TEMPLATES[Math.floor(Math.random() * SENTENCE_TEMPLATES.length)];
-    resultSent.innerHTML = tmpl(draw);
+  const rect=pullBtn.getBoundingClientRect();
+  setTimeout(()=>burst(rect.left+rect.width/2, rect.top+rect.height/2), 450);
 
-    resultChips.innerHTML = Object.entries(draw).map(([cat, val]) => `
-      <div class="chip">
-        <span class="chip-label">${cat}</span>
-        <span class="chip-value">${val}</span>
-      </div>
-    `).join('');
+  setTimeout(()=>{
+    loadingRow.classList.remove('show');
+    // show capsule
+    capsule3d.classList.add('drop-in');
+    capsuleHint.classList.add('show');
 
-    resultCard.classList.add('visible');
-    copyBtn.style.display = 'inline-flex';
-
-    // push to history
-    const plain = `[${draw.상황}] [${draw.장소}] [${draw.사람}] — [${draw.사물}] × [${draw.페인포인트}] × [${draw.기술}]`;
-    history.unshift({ draw, plain });
-    if (history.length > 20) history.pop();
-    renderHistory();
-
-    gachaBtn.disabled = false;
-    gachaBtn.textContent = '🎰 다시 뽑기';
-    animating = false;
+    // pre-roll draw
+    currentDraw = roll();
+    animating=false;
+    pullBtn.disabled=false;
+    pullBtn.textContent='🎰 레버 당기기';
   }, 900);
 }
 
-/* ─── COPY ──────────────────────────────────────────── */
-copyBtn.addEventListener('click', () => {
-  if (!currentDraw) return;
-  const d = currentDraw;
-  const text = `[일상의 틈새 가챠]\n상황: ${d.상황}\n장소: ${d.장소}\n사람: ${d.사람}\n사물: ${d.사물}\n페인포인트: ${d.페인포인트}\n기술: ${d.기술}`;
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = copyBtn.textContent;
-    copyBtn.textContent = '✓ 복사됨';
-    setTimeout(() => copyBtn.textContent = orig, 1500);
-  });
-});
+/* ── CAPSULE OPEN ─────────────────────────────────────────── */
+function openCapsule(){
+  if(!currentDraw) return;
+  const rect=capsule3d.getBoundingClientRect();
+  burst(rect.left+rect.width/2, rect.top+rect.height/2);
 
-/* ─── HISTORY ───────────────────────────────────────── */
-function renderHistory() {
-  if (history.length === 0) { historyWrap.style.display = 'none'; return; }
-  historyWrap.style.display = 'block';
-  historyList.innerHTML = history.map((h, i) => `
-    <div class="history-item" data-idx="${i}">
-      <span class="history-num">#${String(i+1).padStart(2,'0')}</span>${h.plain}
+  capsule3d.classList.add('opening');
+  capsuleHint.classList.remove('show');
+
+  setTimeout(()=>{
+    capsule3d.classList.remove('drop-in','opening');
+    showNote(currentDraw);
+  }, 500);
+}
+
+/* ── SHOW NOTE ───────────────────────────────────────────── */
+function showNote(d){
+  const cats=['상황','장소','사람','사물','페인포인트','기술'];
+  kwGrid.innerHTML = cats.map(c=>`
+    <div class="kw-item">
+      <span class="kw-label">${c}</span>
+      <span class="kw-value">${d[c]}</span>
     </div>
   `).join('');
-  historyList.querySelectorAll('.history-item').forEach(el => {
-    el.addEventListener('click', () => {
-      const idx = parseInt(el.dataset.idx);
-      const h = history[idx];
-      currentDraw = h.draw;
-      const tmpl = SENTENCE_TEMPLATES[Math.floor(Math.random() * SENTENCE_TEMPLATES.length)];
-      resultSent.innerHTML = tmpl(h.draw);
-      resultChips.innerHTML = Object.entries(h.draw).map(([cat, val]) => `
-        <div class="chip">
-          <span class="chip-label">${cat}</span>
-          <span class="chip-value">${val}</span>
-        </div>
-      `).join('');
-      resultCard.classList.remove('visible');
-      void resultCard.offsetWidth;
-      resultCard.classList.add('visible');
-      copyBtn.style.display = 'inline-flex';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const sents=makeSentences(d);
+  noteSentences.innerHTML=sents.map(s=>`<div class="note-sentence">${s}</div>`).join('');
+
+  noteWrap.classList.remove('visible');
+  void noteWrap.offsetWidth;
+  noteWrap.classList.add('visible');
+  actionRow.style.display='flex';
+
+  // history
+  const label=`${d.사람} × ${d.사물} @ ${d.장소}`;
+  historyLog.unshift({d,label});
+  if(historyLog.length>15) historyLog.pop();
+  renderHistory();
+}
+
+/* ── HISTORY ─────────────────────────────────────────────── */
+function renderHistory(){
+  if(!historyLog.length){ historySection.classList.remove('show'); return; }
+  historySection.classList.add('show');
+  historyList.innerHTML=historyLog.map((h,i)=>`
+    <div class="history-chip" data-i="${i}">${h.label}</div>
+  `).join('');
+  historyList.querySelectorAll('.history-chip').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const h=historyLog[+el.dataset.i];
+      currentDraw=h.d;
+      showNote(h.d);
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
 }
 
-/* ─── EVENTS ─────────────────────────────────────────── */
-gachaBtn.addEventListener('click',   triggerGacha);
-machineSvg.addEventListener('click', triggerGacha);
+/* ── COPY ────────────────────────────────────────────────── */
+copyBtn.addEventListener('click',()=>{
+  if(!currentDraw) return;
+  const d=currentDraw;
+  const text=`[Design Seed Gatcha!]\n상황: ${d.상황}\n장소: ${d.장소}\n사람: ${d.사람}\n사물: ${d.사물}\n페인포인트: ${d.페인포인트}\n기술: ${d.기술}\n\n${makeSentences(d).join('\n')}`;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=copyBtn.textContent;
+    copyBtn.textContent='✓ 복사 완료!';
+    setTimeout(()=>copyBtn.textContent=orig, 1500);
+  });
+});
 
-// keyboard shortcut: Space or Enter
-document.addEventListener('keydown', (e) => {
-  if ((e.code === 'Space' || e.code === 'Enter') && !animating) {
-    e.preventDefault();
-    triggerGacha(null);
-  }
+againBtn.addEventListener('click', startPull);
+
+/* ── EVENTS ───────────────────────────────────────────────── */
+leverBtn.addEventListener('click', startPull);
+pullBtn.addEventListener('click', startPull);
+capsule3d.addEventListener('click', openCapsule);
+document.addEventListener('keydown', e=>{
+  if((e.code==='Space'||e.code==='Enter')&&!animating){ e.preventDefault(); startPull(); }
 });
 </script>
 </body>
